@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow">
+  <title>Linha do Tempo</title>
+
+  <link title="timeline-styles" rel="stylesheet"
+    href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+
+  <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+</head>
+
+<body>
+  <p>Selecione um arquivo JSON com os eventos para a linha do tempo:</p>
+  <form>
+    <label for="file">Arquivo JSON:</label>
+    <input name="file" type='file' accept='application/json' onchange='openFile(event)'>
+  </form>
+  <div id='timeline-embed' style="width: 100%; min-height: 600px"></div>
+  <script>
+    var additionalOptions = {
+      language: 'pt-br',
+      timenav_position: 'top'
+    }
+
+    function openFile(event) {
+      var input = event.target;
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        var data = JSON.parse(reader.result);
+        console.log(data);
+        timeline = new TL.Timeline('timeline-embed', data, additionalOptions);
+      };
+      reader.readAsText(input.files[0]);
+    };
+  </script>
+</body>
+
+</html>
